@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>SistemaGestionPedidos.BLL</RootNamespace>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SistemaGestionPedidos.DAL\SistemaGestionPedidos.DAL.vbproj" />
+    <ProjectReference Include="..\SistemaGestionPedidos.Entities\SistemaGestionPedidos.Entities.vbproj" />
+  </ItemGroup>
+
+</Project>
