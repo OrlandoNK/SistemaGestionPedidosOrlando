@@ -1,5 +1,6 @@
 ﻿Imports SistemaGestionPedidos.Entities
-Imports System.Data.SqlClient;
+Imports System.Data
+Imports System.Data.SqlClient
 Public Class CategoriaDAL
     Inherits BaseDAL
 
@@ -49,6 +50,34 @@ Public Class CategoriaDAL
             SeElimino = cmd.ExecuteNonQuery() > 0
         End Using
         Return SeElimino
+    End Function
+
+    Public Shared Function GetByID(id As Integer) As CategoriaEntity
+
+        Dim categoria As CategoriaEntity
+        Using conex As New SqlConnection(CadenaConexion)
+            conex.Open()
+
+            Dim sql As String = "Select * from categoria where id = @idcategoria"
+            Dim cmd As New SqlCommand(sql, conex)
+            cmd.Parameters.AddWithValue("@idcategoria", id)
+            Dim reader As SqlDataReader = cmd.ExecuteReader()
+
+            If reader.Read() Then
+                categoria = ConvertToObject(reader)
+            End If
+
+
+        End Using
+    End Function
+
+    Private Shared Function ConvertToObject(reader As IDataReader) As CategoriaEntity
+        Dim categoria As New CategoriaEntity
+        categoria.ID = reader("ID")
+        categoria.Nombre = reader("Nombre")
+
+        Return categoria
+
     End Function
 
 End Class
