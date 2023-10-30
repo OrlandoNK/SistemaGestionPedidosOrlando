@@ -90,6 +90,26 @@ Public Class CategoriaDAL
         End Using
     End Function
 
+
+    Public Shared Function GetALL() As List(Of CategoriaEntity)
+        Dim list As New List(Of CategoriaEntity)
+
+        Using conex As New SqlConnection(CadenaConexion)
+            conex.Open()
+            Dim sql As String = "Select * from categoria Order By Nombre "
+
+            Dim cmd As New SqlCommand(sql, conex)
+            Dim reader As SqlDataReader = cmd.ExecuteReader()
+
+            While reader.Read()
+
+                list.Add(ConvertToObject(reader))
+
+            End While
+            Return list
+
+        End Using
+    End Function
     Private Shared Function ConvertToObject(reader As IDataReader) As CategoriaEntity
         Dim categoria As New CategoriaEntity
         categoria.ID = reader("ID")
